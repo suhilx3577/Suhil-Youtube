@@ -7,22 +7,7 @@ import { toggleMenu } from '../utils/appSlice';
 const Navbar = () => {
     const dispatch = useDispatch();
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchData, setSearchData] = useState([]);
-    const [showSearch, setShowsearch] = useState(false);
 
-    useEffect(()=>{
-
-        setTimeout(()=>getSearchData(),200);
-        
-    },[searchQuery])
-
-    const getSearchData = async() => {
-        const data = await fetch(YOUTUBE_SEARCH_API+searchQuery)
-        const json = await data.json();
-        console.log(json[1]);
-        setSearchData(json[1]);
-    }
 
     const handleToggleMenu =() => {
         dispatch(toggleMenu());
@@ -40,17 +25,18 @@ const Navbar = () => {
         </div>
         <div className='col-span-10 px-10 ml-28 relative'>
             <div>
-                <input onFocus={ () => setShowsearch(true)} onBlur={()=> setShowsearch(false)} type="text" onChange={(e)=> setSearchQuery(e.target.value)} className='border border-gray-400 rounded-l-full w-96 h-9 px-4' />
+                <input className='border border-gray-400 rounded-l-full w-96 h-9 px-4' />
                 <button className='border border-gray-400  h-9 w-16 rounded-r-full'>Search</button>
             </div>
 
-            {showSearch && <div className='absolute bg-white w-96 mt-3 rounded-lg'>
+            {/* {showSearch && <div className='absolute bg-white w-96 mt-3 rounded-lg'>
                 <ul>
                     {
                         searchData.map((search)=> <li className='hover:cursor-default hover:bg-gray-100 rounded-lg px-3'> & {search}</li> )
                     }
                 </ul>
-            </div>}
+            </div>
+            } */}
         </div>
 
         <div className='col-span-1'>
