@@ -19,16 +19,20 @@ const Navbar = () => {
 
 
     useEffect(()=>{
-        if(cacheData[searchQuery]){
-            setSearchData(cacheData[searchQuery])
-        }
-        else{
-            const timer = setTimeout(()=>APICall(),200)
+        
+        const timer = setTimeout(()=>{
+            if(cacheData[searchQuery]){
+                setSearchData(cacheData[searchQuery])
+            }
+            else{
+                APICall()
+            }
+        },200)
         
         return ()=>{
             clearTimeout(timer)
         }
-    }
+    
 
     },[searchQuery])
 
@@ -38,8 +42,9 @@ const Navbar = () => {
         const data = await fetch(YOUTUBE_SEARCH_API+searchQuery);
         const json = await data.json()
         setSearchData(json[1]);
-        dispatch(cacheResult(json[1]));
-        console.log(json[1])
+        dispatch(cacheResult({
+            [searchQuery]:json[1]
+        }));
     }
 
 
