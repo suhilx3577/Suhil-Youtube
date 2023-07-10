@@ -1,17 +1,47 @@
 import React ,{useState} from 'react'
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { YOUTUBE_SEARCH_API } from '../constants';
 import { toggleMenu } from '../utils/appSlice';
+import { cacheResult } from '../utils/searchSlice';
+
 
 const Navbar = () => {
     const dispatch = useDispatch();
 
-
+    const[searchQuery, setSearchQuery] = useState('');
+    const [searchData, setSearchData] = useState([]);
+    const cacheData = useSelector((store)=>store.search)
 
     const handleToggleMenu =() => {
         dispatch(toggleMenu());
     }
+
+
+    useEffect(()=>{
+        if(cacheData[searchQuery]){
+            setSearchData(cacheData[searchQuery])
+        }
+        else{
+            const timer = setTimeout(()=>APICall(),200)
+        
+        return ()=>{
+            clearTimeout(timer)
+        }
+    }
+
+    },[searchQuery])
+
+
+
+    const APICall = async () =>{
+        const data = await fetch(YOUTUBE_SEARCH_API+searchQuery);
+        const json = await data.json()
+        setSearchData(json[1]);
+        dispatch(cacheResult(json[1]));
+        console.log(json[1])
+    }
+
 
   return (
     <div className='relative pb-10 bg-red-500'>
@@ -25,18 +55,19 @@ const Navbar = () => {
         </div>
         <div className='col-span-10 px-10 ml-28 relative'>
             <div>
-                <input className='border border-gray-400 rounded-l-full w-96 h-9 px-4' />
+                <input onChange={(e)=>setSearchQuery(e.target.value)} className='border border-gray-400 rounded-l-full w-96 h-9 px-4' />
                 <button className='border border-gray-400  h-9 w-16 rounded-r-full'>Search</button>
             </div>
+            {/* searchData.map((search)=> <li className='hover:cursor-default hover:bg-gray-100 rounded-lg px-3'> & {search}</li> ) */}
 
-            {/* {showSearch && <div className='absolute bg-white w-96 mt-3 rounded-lg'>
+            { <div className='absolute bg-white w-96 mt-3 rounded-lg'>
                 <ul>
                     {
-                        searchData.map((search)=> <li className='hover:cursor-default hover:bg-gray-100 rounded-lg px-3'> & {search}</li> )
+                        searchData && searchData.map((search)=> <li className='hover:cursor-default hover:bg-gray-100 rounded-lg px-3' key={search}> & { search}</li>)
                     }
                 </ul>
             </div>
-            } */}
+            } 
         </div>
 
         <div className='col-span-1'>
