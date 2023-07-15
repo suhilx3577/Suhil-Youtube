@@ -2,9 +2,9 @@ import React from 'react'
 
 const Comment = ({data}) => {
     const {name, text, replies} = data;
-    console.log(name,text,replies)
+    // console.log(name,text,replies)
   return (
-    <div className='flex gap-2'>
+    <div className='flex gap-2 bg-slate-100 rounded-lg p-2 mt-1'>
         <div >
             <img className='h-8 w-8 mt-2 ' src="https://cdn-icons-png.flaticon.com/512/709/709722.png" alt="icon" />
         </div>
