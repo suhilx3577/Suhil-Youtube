@@ -12,6 +12,7 @@ const Navbar = () => {
     const[searchQuery, setSearchQuery] = useState('');
     const [searchData, setSearchData] = useState([]);
     const cacheData = useSelector((store)=>store.search)
+    // console.log(cacheData) 
 
     const handleToggleMenu =() => {
         dispatch(toggleMenu());
@@ -36,17 +37,15 @@ const Navbar = () => {
 
     },[searchQuery])
 
-
-
     const APICall = async () =>{
         const data = await fetch(YOUTUBE_SEARCH_API+searchQuery);
         const json = await data.json()
         setSearchData(json[1]);
+        // console.log(json[1])
         dispatch(cacheResult({
             [searchQuery]:json[1]
         }));
     }
-
 
   return (
     <div className='relative pb-10 bg-red-500'>

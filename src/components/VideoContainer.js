@@ -3,7 +3,6 @@ import Videocard from './Videocard'
 import { YOUTUBE_API_URL } from '../constants'
 import {Link} from 'react-router-dom'
 
-
 const VideoContainer = () => {
 
     const [ video, setVideo] = useState([])
@@ -16,7 +15,7 @@ const VideoContainer = () => {
         const data = await fetch(YOUTUBE_API_URL)
         const json =  await data.json()
         setVideo(json.items)
-        console.log(json.items)
+        // console.log(json)
     }
 
     if(video.length < 1) return <h1>Loading</h1>
