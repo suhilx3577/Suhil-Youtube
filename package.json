@@ -39,6 +39,11 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "@testing-library/react": "^14.0.0",
+    "jest": "^27.5.1",
+>>>>>>> parent of 2ea06ef (errors)
     "tailwindcss": "^3.3.2"
   }
 }
