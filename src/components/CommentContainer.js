@@ -135,15 +135,14 @@ const CommentContainer = () => {
     const CommentList = ({comments}) => {
         return (
             comments.map((comment,i)=>(
-            <div key={i} >
-                 <Comment data={comment}/>
+            <div>
+                 <Comment key={i} data={comment}/>
                  <div className='pl-5 border border-l-black ml-5'>
                     <CommentList comments={comment.replies}/>
                  </div>
             </div>
-        )));
-
-    };
+        )))
+    }
   return (
     <div className='w-4/5'>
         <h1 className='text-3xl font-bold'>Comments</h1>
