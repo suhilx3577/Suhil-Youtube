@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux/es/exports';
-import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
 
@@ -17,7 +16,7 @@ const Sidebar = () => {
             <li>Trending</li>
         </ul>
 
-        <Link to="/demo"><h1 className='mt-4 font-bold' >Subscription</h1></Link>
+        <h1 className='mt-4 font-bold'>Subscription</h1>
         <ul>
             <li>Home</li>
             <li>Music</li>
